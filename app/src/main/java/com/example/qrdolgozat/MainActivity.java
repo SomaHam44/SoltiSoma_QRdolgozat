@@ -35,6 +35,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        buttonKiir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
