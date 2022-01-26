@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,14 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     private Button buttonScan, buttonKiir;
@@ -39,6 +48,22 @@ public class MainActivity extends AppCompatActivity {
         buttonKiir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Date datum = Calendar.getInstance().getTime();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String datumFormazva = dateFormat.format(datum);
+                String sor = String.format(" %s, %s",textViewSzoveg.getText().toString(), datumFormazva);
+                String allapot = Environment.getExternalStorageState();
+                if (allapot.equals(Environment.MEDIA_MOUNTED)) {
+                    File fajl = new File(Environment.getExternalStorageState(), "scannedCodes.csv");
+                    try {
+                        BufferedWriter writer = new BufferedWriter(new FileWriter(fajl, true));
+                        writer.append(sor);
+                        writer.append(System.lineSeparator());
+                        writer.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
 
             }
         });
