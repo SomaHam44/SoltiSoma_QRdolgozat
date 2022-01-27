@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                     File fajl = new File(Environment.getExternalStorageState(), "scannedCodes.csv");
                     try {
                         FileOutputStream fileOutputStream = openFileOutput("scannedCodes.csv", MODE_PRIVATE);
-                        fileOutputStream.write((sor.getBytes());
+                        fileOutputStream.write(sor.getBytes());
                         Toast.makeText(MainActivity.this,"Sikeres fájlba írás" + getFilesDir(), Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         Toast.makeText(MainActivity.this,"Sikertelen fájlba írás" + getFilesDir(), Toast.LENGTH_SHORT).show();
