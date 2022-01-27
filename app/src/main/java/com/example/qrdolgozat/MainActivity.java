@@ -17,6 +17,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -56,11 +57,11 @@ public class MainActivity extends AppCompatActivity {
                 if (allapot.equals(Environment.MEDIA_MOUNTED)) {
                     File fajl = new File(Environment.getExternalStorageState(), "scannedCodes.csv");
                     try {
-                        BufferedWriter writer = new BufferedWriter(new FileWriter(fajl, true));
-                        writer.append(sor);
-                        writer.append(System.lineSeparator());
-                        writer.close();
+                        FileOutputStream fileOutputStream = openFileOutput("scannedCodes.csv", MODE_PRIVATE);
+                        fileOutputStream.write((sor.getBytes());
+                        Toast.makeText(MainActivity.this,"Sikeres fájlba írás" + getFilesDir(), Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
+                        Toast.makeText(MainActivity.this,"Sikertelen fájlba írás" + getFilesDir(), Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
                 }
